@@ -1,4 +1,5 @@
 #include <iostream>
+#include "node.h"
 
 using namespace std;
 
@@ -35,7 +36,7 @@ public:
         this->root = r;
     }
     void add_node(Node n){
-
+        
     }
     int compute(){
         int res = this->root.get_value();
