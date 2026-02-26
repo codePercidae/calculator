@@ -3,13 +3,13 @@
 
 using namespace std;
 
-class Node
+class node
 {
     public:
         int value;
         int (*op)(int, int);
-        Node *left, *right;
-        Node(){
+        node *left, *right;
+        node(){
             this->value = NULL;
             this->op = NULL;
             this->left = nullptr;
@@ -28,15 +28,12 @@ class Node
         }
 };
 
-class ParseTree
+class parsetree
 {
 public:
-    Node root;
-    ParseTree(Node r){
+    node root;
+    parsetree(node r){
         this->root = r;
-    }
-    void add_node(Node n){
-        
     }
     int compute(){
         int res = this->root.get_value();
