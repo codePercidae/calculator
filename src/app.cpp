@@ -5,6 +5,7 @@
 #include <cctype>
 #include <locale>
 #include <string>
+#include <vector>
 #include "node.h"
 
 using namespace std;
@@ -13,6 +14,7 @@ class operation{
     public:
         char symbol;
         int (*op)(int, int);
+        int precedence; 
 };
 
 int add(int a, int b){
@@ -39,46 +41,18 @@ string input(){
     return expression;
 }
 
-int parse(string &expr){
-    trimS(expr);
-    string operands = "+*-/";
-    string currentN = "";
-    bool opAllowed = false;
-    bool numAllowed = true;
-    bool openPAllowe = true;
-    bool closedPallowed = false;
-    int a;
-    int b;
-    parsetree t;
-    node current = t.root;
-    for (int i = 0; i < expr.size(); i++){
-        if (isdigit(expr[i]) && numAllowed){
-            currentN += expr[i];
-        } 
-        else if (operands.find(expr[i]) && opAllowed){
-            if (currentN != ""){
-                a = stoi(currentN);
-                current.left = new node;
-                current.left->value = a;
-                current.op = opTable[expr[i]].op;
-                current.right = new node;
-                current = *current.right;
-            }
-            opAllowed = false;
-        }
-    }
-    return t.compute();
-}
-
 inline void trimS(string &s){
-    s.erase(s.begin(), find_if(s. begin(), s.end(), [](unsigned char ch) {
-        return !isspace(ch);
-    }));
+    s.erase(
+        s.begin(), find_if(s. begin(), s.end(), [](unsigned char ch) {
+                return !isspace(ch);
+            }
+        )
+    );
 }
 
 int main(){
 
-    /*Declare all mathematical operations*/
+    /*Declare mathematical operations*/
     char ch1{ '+' };
     char ch2{ '-' };
     char ch3{ '*' };
@@ -108,7 +82,6 @@ int main(){
     while (true)
     {
         string expression = input();
-        parse(expression);
+        trimS(expression);
     }
-    
 }
